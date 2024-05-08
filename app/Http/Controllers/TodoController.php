@@ -3,21 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\Todolist;
+use domain\facades\TodoFacade;
 use Illuminate\Http\Request;
 
 
-class TodoController extends Controller
+
+class TodoController extends ParentController
 
 {
-    protected $task;
 
-    public function __construct()
-    {
-        $this->task = new Todolist(); //calling the database model
-    }
     public function index()
     {
-        $response['tasks'] = $this->task->all(); //all() -> generates a sql command (selects all from todo)
+        $response['tasks'] = TodoFacade::all(); //calls for todoFacade which works as a bridge to contact services
+        //all() -> generates a sql command (selects all from todo)
 
         // dd($response);
         // Dumps the contents of the $request variable to the screen (using var_dump under the hood).
@@ -27,23 +25,19 @@ class TodoController extends Controller
     }
     public function store(Request $request)
     {
-        $this->task->create($request->all());
+        TodoFacade::store($request->all());
         return redirect()->back();
     }
 
     public function delete($task_id)
     {
-        $task = $this->task->find($task_id);
-        $task->delete();
-        // $this->task->where('id', $task_id)->delete();
+        TodoFacade::delete($task_id);
         return redirect()->back();
     }
 
     public function done($task_id)
     {
-        $task = $this->task->find($task_id);
-        $task->done = 1;
-        $task->update();
+        TodoFacade::done($task_id);
         return redirect()->back();
     }
 }

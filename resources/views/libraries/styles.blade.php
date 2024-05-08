@@ -5,4 +5,7 @@
 
 <script src="https://kit.fontawesome.com/ffeca47bde.js" crossorigin="anonymous"></script>
 
+@livewireStyles
+
+
 @stack('css')

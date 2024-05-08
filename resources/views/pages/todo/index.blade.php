@@ -1,4 +1,4 @@
-@extends('layout.app')
+@extends('layouts.app')
 
 
 @section('content')
@@ -56,7 +56,13 @@
                                             <i class="fa-solid fa-trash"></i>
                                         </a>
                                         <a href="{{ route('todo.done', $task->id) }}" class="btn btn-success ">
-                                            <i class="fa-solid fa-circle-check"></i> </a>
+                                            <i class="fa-solid fa-circle-check"></i>
+                                        </a>
+                                        <a href="javascript:void(0)" class="btn btn-info ">
+                                            <!-- nothing happend after clicking -->
+                                            <i class="fa-solid fa-pen" data-bs-toggle="modal"
+                                                data-bs-target="#taskEdit"></i>
+                                        </a>
 
                                     </td>
                                 </tr>
@@ -66,6 +72,25 @@
                         </tbody>
                     </table>
                 </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="taskEdit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="taskEditLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="taskEditLabel">Edit main task</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="taskEditContent">
+
+                    modal </div>
+
             </div>
         </div>
     </div>
