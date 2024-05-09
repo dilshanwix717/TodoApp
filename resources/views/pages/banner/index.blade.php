@@ -4,22 +4,29 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col lg 12">
-                <h3 class="page-title">Todo List</h3>
+            <div class="text-center col-lg-12">
+                <h3 class="page-title">Banner List</h3>
+
             </div>
             <div class="col-lg-12" mt-5>
-                <form action="{{ route('todo.store') }}" method="POST" enctype="multipart/form">
+                <form action="{{ route('banner.store') }}" method="POST" enctype="multipart/form">
                     {{-- go to the store class on TodoController using web.php route --}}
                     @csrf
                     {{-- for the token --}}
                     <div class="row">
                         <div class="col-lg-8">
                             <div class="form-group">
-                                <input class="form-control" name="title" type="text" placeholder="Enter task" required>
+                                <input class="form-control" name="title" type="text" placeholder="Enter banner title">
+                            </div>
+                            <div class="form-group mt-5">
+                                <input class="form-control" name="image" type="file" placeholder="Enter banner image"
+                                    accept="image/jpg, image/png, image/jpeg ">
+
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <button class="btn btn-primary">Submit</button>
+
                         </div>
 
                     </div>
@@ -39,28 +46,30 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($tasks as $key => $task)
+                            @foreach ($banners as $key => $banner)
                                 <tr>
                                     <th scope="row">{{ ++$key }}</th>
-                                    <td>{{ $task->title }}</td>
+                                    <td>{{ $banner->title }}</td>
 
                                     <td>
-                                        @if ($task->done == 0)
+                                        @if ($banner->done == 0)
                                             <span class="badge bg-warning">Not Completed</span>
                                         @else
                                             <span class="badge bg-success">Completed</span>
                                         @endif
                                     </td>
                                     <td>
-                                        <a href="{{ route('todo.delete', $task->id) }}" class="btn btn-danger ">
+                                        <a href="{{ route('banner.delete', $banner->id) }}" class="btn btn-danger ">
                                             <i class="fa-solid fa-trash"></i>
                                         </a>
-                                        <a href="{{ route('todo.done', $task->id) }}" class="btn btn-success ">
+                                        <a href="{{ route('banner.status', $banner->id) }}" class="btn btn-success ">
                                             <i class="fa-solid fa-circle-check"></i>
                                         </a>
-                                        <div class="btn btn-info" onclick="taskEditModal({{ $task->id }})">
-                                            <i class="fa-solid fa-pen"></i>
-                                        </div>
+                                        <a href="javascript:void(0)" class="btn btn-info ">
+                                            <!-- nothing happend after clicking -->
+                                            <i class="fa-solid fa-pen" data-bs-toggle="modal"
+                                                data-bs-target="#bannerEdit"></i>
+                                        </a>
 
                                     </td>
                                 </tr>
@@ -77,18 +86,17 @@
 
 
     <!-- Modal -->
-    <div class="modal fade" id="taskEdit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-        aria-labelledby="taskEditLabel" aria-hidden="true">
+    <div class="modal fade" id="bannerEdit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="bannerEditLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="taskEditLabel">Edit main task
-                    </h1>
+                    <h1 class="modal-title fs-5" id="bannerEditLabel">Edit main banner</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body" id="taskEditContent">
+                <div class="modal-body" id="bannerEditContent">
 
-                </div>
+                    modal </div>
 
             </div>
         </div>
@@ -105,29 +113,4 @@
             color: blue;
         }
     </style>
-@endpush
-
-@push('js')
-    <script>
-        function taskEditModal(task_id) {
-            var data = {
-                task_id: task_id,
-
-            };
-            $.ajax({
-                url: "{{ route('todo.edit') }}",
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                type: 'GET',
-                dataType: '',
-                data: data,
-                success: function(response) {
-                    console.log(response);
-                    $('#taskEdit').modal('show');
-                    $('#taskEditContent').html(response);
-                }
-            })
-        }
-    </script>
 @endpush

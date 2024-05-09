@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BannerController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TodoController;
 
@@ -17,16 +18,18 @@ Route::prefix('/todo')->group(function () {
     Route::post('/store', [TodoController::class, "store"])->name('todo.store')->middleware('auth');
     Route::get('/{task_id}/delete', [TodoController::class, "delete"])->name('todo.delete')->middleware('auth');
     Route::get('/{task_id}/done', [TodoController::class, "done"])->name('todo.done')->middleware('auth');
+    Route::get('/edit', [TodoController::class, "edit"])->name('todo.edit')->middleware('auth');
+    Route::post('/{task_id}/update', [TodoController::class, "update"])->name('todo.update')->middleware('auth');
 });
 // Route::get('/edit', [TodoController::class, "edit"])->name('todo.edit');
 //Route::post('/{task_id}/update', [TodoController::class, "update"])->name('todo.update');
 
 
 Route::prefix('/banner')->group(function () {
-    Route::get('/', [TodoController::class, "index"])->name('banner')->middleware('auth');
-    Route::post('/store', [TodoController::class, "store"])->name('banner.store')->middleware('auth');
-    Route::get('/{banner_id}/delete', [TodoController::class, "delete"])->name('banner.delete')->middleware('auth');
-    Route::get('/{banner_id}/status', [TodoController::class, "status"])->name('banner.status')->middleware('auth');
+    Route::get('/', [BannerController::class, "index"])->name('banner')->middleware('auth');
+    Route::post('/store', [BannerController::class, "store"])->name('banner.store')->middleware('auth');
+    Route::get('/{banner_id}/delete', [BannerController::class, "delete"])->name('banner.delete')->middleware('auth');
+    Route::get('/{banner_id}/status', [BannerController::class, "status"])->name('banner.status')->middleware('auth');
 });
 
 Route::middleware([
