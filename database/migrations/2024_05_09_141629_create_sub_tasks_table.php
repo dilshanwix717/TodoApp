@@ -11,13 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('banners', function (Blueprint $table) {
+        Schema::create('sub_tasks', function (Blueprint $table) {
             $table->id();
-            $table->string('title')->nullable();
-            $table->bigInteger('image_id')->nullable();
-            $table->integer('status')->nullable();
-
             $table->timestamps();
+            $table->string('sub_title')->nullable();
+
+            $table->integer('priority')->default(4);
+            $table->text('note')->nullable();
+            $table->date('date')->nullable();
         });
     }
 
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('banners');
+        Schema::dropIfExists('sub_tasks');
     }
 };

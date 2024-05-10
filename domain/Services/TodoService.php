@@ -2,15 +2,18 @@
 
 namespace domain\Services;
 
+use App\Models\SubTask;
 use App\Models\Todolist;
 
 class TodoService
 {
     protected $task;
+    protected $sub;
 
     public function __construct()
     {
         $this->task = new Todolist();
+        $this->sub = new SubTask();
     }
 
     public function get($task_id)
@@ -50,8 +53,22 @@ class TodoService
     }
 
 
-    protected function edit(Todolist $task, $data)
+    public function edit(Todolist $task, $data)
     {
         return array_merge($task->toArray(), $data);
+    }
+
+
+    // sub tasks section
+
+
+    public function subStore($data)
+    {
+        $this->sub->create($data);
+    }
+
+    public function getSubTaskByTask($task_id)
+    {
+        return $this->sub->getSubTaskByTask($task_id);
     }
 }

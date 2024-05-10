@@ -11,9 +11,7 @@
                     <a class="nav-link active" aria-current="page" href="{{ route('todo') }}">Todo List</a>
                 </li>
 
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{ route('banner') }}">Banner List</a>
-                </li>
+
 
             </ul>
 
@@ -21,13 +19,14 @@
                 <form method="POST" action="{{ route('logout') }}" x-data>
                     @csrf
 
-                    <button type="submit" class="nav-link">
+                    <button type="submit" class="btn btn-danger">
                         {{ __('Log Out') }}
                     </button>
+
                 </form>
             @else
                 <span>
-                    <a href="{{ route('login') }}">Login</a>
+                    <a href="{{ route('login') }}" class="btn btn-success">Log In</a>
                 </span>
             @endif
 

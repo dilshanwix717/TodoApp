@@ -4,7 +4,7 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col lg 12">
+            <div class="col lg 12 text-center">
                 <h3 class="page-title">Todo List</h3>
             </div>
             <div class="col-lg-12" mt-5>
@@ -62,6 +62,10 @@
                                             <i class="fa-solid fa-pen"></i>
                                         </div>
 
+                                        <a href="{{ route('todo.sub', $task->id) }}" class="btn btn-warning ">
+                                            <i class="fa-solid fa-list-check"></i> </a>
+
+
                                     </td>
                                 </tr>
                             @endforeach
@@ -99,8 +103,10 @@
     <style>
         .page-title {
             padding-top: 10vh;
-            font-size: 78px;
-            font-weight: 600;
+            padding-bottom: 3vh;
+
+            font-size: 40px;
+            font-weight: 400;
             align-content: center;
             color: blue;
         }

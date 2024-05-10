@@ -11,11 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('images', function (Blueprint $table) {
-            $table->id();
-            $table->string('name')->nullable();
-
-            $table->timestamps();
+        Schema::table('sub_tasks', function (Blueprint $table) {
+            $table->foreignId('task_id')->nullable()->constrained('todolists');
         });
     }
 
@@ -24,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('images');
+        Schema::table('sub_tasks', function (Blueprint $table) {
+            //
+        });
     }
 };
